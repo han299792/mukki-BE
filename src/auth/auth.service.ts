@@ -54,7 +54,7 @@ export class AuthService {
     return res.data;
   }
 
-  async getUserInfoFromToken(accessToken: string): Promise<any> {
+  async getUserInfoFromToken(accessToken: string): Promise<number> {
     const headers = {
       Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaClient, User } from '@prisma/client';
+import { CreateUserDto } from './dto/createUser.dto';
 
 @Injectable()
 export class UserRepository {
@@ -9,12 +10,20 @@ export class UserRepository {
     return this.prisma.user.findUnique({ where: { kakaoId } });
   }
 
-  async findOne(where: Partial<User>): Promise<User | null> {
-    return this.prisma.user.findUnique({ where });
-  }
-
-  async createUser(data: Partial<User>): Promise<User> {
-    return this.prisma.user.create({ data });
+  async createUser(createUserDto: CreateUserDto): Promise<User> {
+    const { username, email, password, kakaoId, location_lat, location_long } =
+      createUserDto;
+    const newUser = await this.prisma.user.create({
+      data: {
+        username,
+        email,
+        password,
+        kakaoId,
+        location_lat,
+        location_long,
+      },
+    });
+    return newUser;
   }
 
   async updateUser(userId: number, data: Partial<User>): Promise<User> {
