@@ -14,9 +14,7 @@ export class AuthController {
   async getAccessToken(
     @Query('code') code: string,
   ): Promise<AccessTokenResponse> {
-    console.log(code);
     if (!code) {
-      console.log('Authorization code missing');
       throw new Error('Authorization code is required');
     }
     const tokenRes = await this.authService.getAccessToken(code);
