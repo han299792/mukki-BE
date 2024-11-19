@@ -5,6 +5,9 @@ import { AuthService } from './auth/auth.service';
 import { AuthController } from './auth/auth.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
+import { UserService } from './user/user.service';
+import { UserController } from './user/user.controller';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -13,8 +16,9 @@ import { HttpModule } from '@nestjs/axios';
       envFilePath: '.env',
     }),
     HttpModule,
+    UserModule,
   ],
-  controllers: [AppController, AuthController],
-  providers: [AppService, AuthService, ConfigService],
+  controllers: [AppController, AuthController, UserController],
+  providers: [AppService, AuthService, ConfigService, UserService],
 })
 export class AppModule {}
