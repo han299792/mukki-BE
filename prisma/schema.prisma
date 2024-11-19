@@ -44,6 +44,7 @@ model User {
   username  String   @db.VarChar(50)
   email     String   @unique @db.VarChar(100)
   password  String   @db.VarChar(255)
+  kakaoId       Int?     @unique
   location_lat Decimal? @db.Decimal(9, 6)
   location_long Decimal? @db.Decimal(9, 6)
   preferences UserFoodPreferences[]
