@@ -72,7 +72,7 @@ model User {
   username      String  @db.VarChar(50)
   email         String  @db.VarChar(100)
   password      String  @db.VarChar(255)
-  location_lat  Decimal @db.Decimal(9, 6)
-  location_long Decimal @db.Decimal(9, 6)
+  location_lat  Decimal? @db.Decimal(9, 6)
+  location_long Decimal? @db.Decimal(9, 6)
   kakaoId       Int?    @unique
 }

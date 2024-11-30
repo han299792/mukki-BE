@@ -16,8 +16,6 @@ export class UserRepository {
       email: data.email,
       password: data.password || '',
       kakaoId: data.kakaoId || null,
-      location_lat: data.location_lat || null,
-      location_long: data.location_long || null,
     };
     return this.prisma.user.create({ data: registerData });
   }

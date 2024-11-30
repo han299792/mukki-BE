@@ -13,12 +13,4 @@ export class CreateUserDto {
   @IsOptional()
   @IsNumber()
   kakaoId?: number;
-
-  @IsOptional()
-  @IsNumber()
-  location_lat?: number;
-
-  @IsOptional()
-  @IsNumber()
-  location_long?: number;
 }

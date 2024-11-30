@@ -7,21 +7,7 @@ import { UserRepository } from './user.repository';
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async register(createUserDto: CreateUserDto): Promise<User> {
-    const { username, email, password, kakaoId, location_lat, location_long } =
-      createUserDto;
-
-    const existingUser = await this.userRepository.findByEmail(email);
-    if (existingUser) {
-      throw new Error('User with this email already exists');
-    }
-    return this.userRepository.createUser({
-      username,
-      email,
-      password,
-      kakaoId,
-      location_lat,
-      location_long,
-    });
+  async register(createUserDto: CreateUserDto): Promise partial implements<User> {
+    const { username, email, password, kakaoId } = createUserDto;
   }
 }
