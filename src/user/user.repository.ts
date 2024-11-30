@@ -14,7 +14,7 @@ export class UserRepository {
     const registerData: Prisma.UserCreateInput = {
       username: data.username,
       email: data.email,
-      password: data.password || '',
+      password: data.password,
       kakaoId: data.kakaoId || null,
     };
     return this.prisma.user.create({ data: registerData });
