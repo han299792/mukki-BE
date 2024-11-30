@@ -10,10 +10,6 @@ export class UserRepository {
     return this.prisma.user.findUnique({ where: { kakaoId } });
   }
 
-  async findByEmail(email: string): Promise<User | null> {
-    return this.prisma.user.findUnique({ where: { email } });
-  }
-
   async createUser(data: CreateUserDto): Promise<User> {
     const registerData: Prisma.UserCreateInput = {
       username: data.username,

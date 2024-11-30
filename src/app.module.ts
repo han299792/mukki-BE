@@ -8,6 +8,9 @@ import { HttpModule } from '@nestjs/axios';
 import { UserService } from './user/user.service';
 import { UserController } from './user/user.controller';
 import { UserModule } from './user/user.module';
+import { LocationModule } from './location/location.module';
+import { RestaurantService } from './restaurant/restaurant.service';
+import { RestaurantModule } from './restaurant/restaurant.module';
 
 @Module({
   imports: [
@@ -17,8 +20,16 @@ import { UserModule } from './user/user.module';
     }),
     HttpModule,
     UserModule,
+    LocationModule,
+    RestaurantModule,
   ],
   controllers: [AppController, AuthController, UserController],
-  providers: [AppService, AuthService, ConfigService, UserService],
+  providers: [
+    AppService,
+    AuthService,
+    ConfigService,
+    UserService,
+    RestaurantService,
+  ],
 })
 export class AppModule {}
