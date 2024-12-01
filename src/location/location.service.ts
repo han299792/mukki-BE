@@ -1,18 +1,16 @@
 import { Injectable } from '@nestjs/common';
+import { LocationRepository } from './location.repository';
 import { CreateLocationDto } from './dto/userLocation.dto';
-import { PrismaClient } from '@prisma/client';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class LocationService {
-  constructor(private prisma: PrismaClient) {}
+  constructor(private readonly locationRepository: LocationRepository) {}
 
-  async saveUserLocation(userId: number, locationDto: CreateLocationDto) {
-    return this.prisma.user.update({
-      where: { user_id: userId },
-      data: {
-        location_lat: locationDto.latitude,
-        location_long: locationDto.longitude,
-      },
-    });
+  async saveUserLocation(
+    userId: number,
+    locationDto: CreateLocationDto,
+  ): Promise<User> {
+    return this.locationRepository.updateUserLocation(userId, locationDto);
   }
 }
