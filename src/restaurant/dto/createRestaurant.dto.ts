@@ -44,11 +44,11 @@ export class CreateRestaurantDto {
 
   @IsString()
   @IsNotEmpty()
-  time_open: Date;
+  time_open: string;
 
   @IsString()
   @IsNotEmpty()
-  time_close: Date;
+  time_close: string;
 
   @IsBoolean()
   @IsOptional()
