@@ -20,6 +20,9 @@ model Restaurants {
   time_close     DateTime
   is_res_halal       Boolean @default(false)
   is_res_vegan       Boolean @default(false)
+  photo_id      Int?
+  
+  photo         Photo?       @relation(fields: [photo_id], references: [photo_id])
   menus          Menu[]
 }
 
@@ -45,6 +48,7 @@ model Photo {
   file_path  String @db.VarChar(255)
 
   menus    Menu[]
+  restaurants Restaurants[]
 }
 
 model Menu_Component {
