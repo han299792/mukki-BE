@@ -33,4 +33,9 @@ export class RestaurantRepository {
       data: { photo_id: photo.photo_id },
     });
   }
+  async createRestaurant(data: CreateRestaurantDto) {
+    return await this.prisma.restaurants.create({
+      data,
+    });
+  }
 }
