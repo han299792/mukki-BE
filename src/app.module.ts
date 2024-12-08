@@ -6,6 +6,7 @@ import { RestaurantModule } from './restaurant/restaurant.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { GlobalHttpModule } from './http/http.module';
 import { AuthModule } from './auth/auth.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -22,5 +23,6 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
   ],
   providers: [ConfigService],
+  controllers: [AppController],
 })
 export class AppModule {}
