@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
-import { FillterDto } from './dto/requestRestaurant.dto';
+import { FilterDto } from './dto/requestRestaurant.dto';
 import { S3Service } from 'src/S3';
 import { ResPhotoDto } from './dto/resPhoto.dto';
 import { CreateRestaurantDto } from './dto/createRestaurant.dto';
@@ -12,7 +12,7 @@ export class RestaurantRepository {
     private readonly s3Service: S3Service,
   ) {}
 
-  async findRestaurantInCondition(filterDto: FillterDto) {
+  async findRestaurantInCondition(filterDto: FilterDto) {
     const { is_vegan, is_halal, is_peanut } = filterDto;
     return this.prisma.restaurants.findMany({
       where: {

@@ -33,6 +33,7 @@ export class RestaurantController {
           address_detail: { type: 'string', example: '123-14' },
           is_res_vegan: { type: 'Boolean', example: 'true' },
           is_res_halal: { type: 'boolean', example: 'false' },
+          is_res_peanut: { type: 'boolean', example: 'false' },
         },
       },
     },
