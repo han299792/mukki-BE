@@ -41,8 +41,13 @@ export class RestaurantController {
   async getRestaurantInCondition(
     @Query('vegan') isVegan: boolean,
     @Query('halal') isHalal: boolean,
+    @Query('peanut') isPeanut: boolean,
   ) {
-    return this.restaurantService.getRestaurantList(isVegan, isHalal);
+    return await this.restaurantService.getRestaurantList(
+      isVegan,
+      isHalal,
+      isPeanut,
+    );
   }
 
   @Post(':id/photo')

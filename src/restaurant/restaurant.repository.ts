@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client';
 import { FillterDto } from './dto/requestRestaurant.dto';
 import { S3Service } from 'src/S3';
 import { ResPhotoDto } from './dto/resPhoto.dto';
+import { CreateRestaurantDto } from './dto/createRestaurant.dto';
 
 @Injectable()
 export class RestaurantRepository {
@@ -12,11 +13,12 @@ export class RestaurantRepository {
   ) {}
 
   async findRestaurantInCondition(filterDto: FillterDto) {
-    const { is_vegan, is_halal } = filterDto;
+    const { is_vegan, is_halal, is_peanut } = filterDto;
     return this.prisma.restaurants.findMany({
       where: {
         is_res_vegan: is_vegan,
         is_res_halal: is_halal,
+        is_res_peanut: is_peanut,
       },
       include: { photo: true },
     });

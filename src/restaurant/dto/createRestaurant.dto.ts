@@ -41,7 +41,7 @@ export class CreateRestaurantDto {
   @IsString()
   @IsOptional()
   @Length(1, 50)
-  address_detail?: string;
+  address_detail: string;
 
   @IsDateString()
   @IsNotEmpty()
@@ -53,11 +53,15 @@ export class CreateRestaurantDto {
 
   @IsBoolean()
   @IsOptional()
-  is_res_halal?: boolean;
+  is_res_halal: boolean;
 
   @IsBoolean()
   @IsOptional()
-  is_res_vegan?: boolean;
+  is_res_vegan: boolean;
+
+  @IsBoolean()
+  @IsOptional()
+  is_res_peanut: boolean;
 
   @IsOptional()
   photo_id?: number;

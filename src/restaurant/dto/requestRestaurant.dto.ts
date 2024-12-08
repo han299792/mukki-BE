@@ -5,4 +5,6 @@ export class FillterDto {
   is_vegan: boolean;
   @IsBoolean()
   is_halal: boolean;
+  @IsBoolean()
+  is_peanut: boolean;
 }

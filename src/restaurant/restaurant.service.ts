@@ -11,14 +11,15 @@ export class RestaurantService {
     private readonly s3Service: S3Service,
   ) {}
 
-  async getRestaurantList(isVegan, isHalal): Promise<Restaurants[]> {
+  async getRestaurantList(isVegan, isHalal, isPeanut): Promise<Restaurants[]> {
     const is_vegan = isVegan == 'true' ? true : false;
     const is_halal = isHalal == 'true' ? true : false;
-    const filterDto = { is_vegan, is_halal };
+    const is_peanut = isPeanut == 'true' ? true : false;
+    const filterDto = { is_vegan, is_halal, is_peanut };
     return this.restaurantRepository.findRestaurantInCondition(filterDto);
   }
 
   async uploadRestaurantPhoto(resPhotoDto: ResPhotoDto): Promise<Restaurants> {
-    return this.restaurantRepository.uploadRestaurantPhoto(resPhotoDto);
+    return await this.restaurantRepository.uploadRestaurantPhoto(resPhotoDto);
   }
 }
