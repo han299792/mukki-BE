@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   Param,
@@ -10,6 +11,7 @@ import {
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RestaurantService } from './restaurant.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { CreateRestaurantDto } from './dto/createRestaurant.dto';
 
 @ApiTags('restaurants')
 @Controller('restaurants')
@@ -58,5 +60,10 @@ export class RestaurantController {
       restaurant_id,
       file,
     });
+  }
+
+  @Post()
+  async createRestaurant(@Body() createRestaurantDto: CreateRestaurantDto) {
+    return await this.restaurantService.createRestaurant(createRestaurantDto);
   }
 }

@@ -3,7 +3,6 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  IsDateString,
   Length,
 } from 'class-validator';
 
@@ -43,11 +42,11 @@ export class CreateRestaurantDto {
   @Length(1, 50)
   address_detail: string;
 
-  @IsDateString()
+  @IsString()
   @IsNotEmpty()
   time_open: Date;
 
-  @IsDateString()
+  @IsString()
   @IsNotEmpty()
   time_close: Date;
 

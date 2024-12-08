@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Restaurants" ALTER COLUMN "time_open" SET DATA TYPE VARCHAR(50),
+ALTER COLUMN "time_close" SET DATA TYPE VARCHAR(50);

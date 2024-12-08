@@ -16,8 +16,8 @@ model Restaurants {
   address_gu     String   @db.VarChar(50)
   address_dong   String   @db.VarChar(50)
   address_detail String   @db.VarChar(50)
-  time_open      DateTime
-  time_close     DateTime
+  time_open      String   @db.VarChar(50)
+  time_close     String   @db.VarChar(50)
   is_res_halal       Boolean @default(false)
   is_res_vegan       Boolean @default(false)
   is_res_peanut      Boolean @default(false)

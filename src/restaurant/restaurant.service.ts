@@ -4,6 +4,7 @@ import { RestaurantRepository } from './restaurant.repository';
 import { ResPhotoDto } from './dto/resPhoto.dto';
 import { S3Service } from 'src/S3';
 import { FilterDto } from './dto/requestRestaurant.dto';
+import { CreateRestaurantDto } from './dto/createRestaurant.dto';
 
 @Injectable()
 export class RestaurantService {
@@ -19,5 +20,10 @@ export class RestaurantService {
 
   async uploadRestaurantPhoto(resPhotoDto: ResPhotoDto): Promise<Restaurants> {
     return await this.restaurantRepository.uploadRestaurantPhoto(resPhotoDto);
+  }
+  async createRestaurant(createRestaurantDto: CreateRestaurantDto) {
+    return await this.restaurantRepository.createRestaurant(
+      createRestaurantDto,
+    );
   }
 }
