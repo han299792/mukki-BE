@@ -1,8 +1,17 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RestaurantService } from './restaurant.service';
+import { FileInterceptor } from '@nestjs/platform-express';
 
-@ApiTags('restaurants') // Swagger 태그
+@ApiTags('restaurants')
 @Controller('restaurants')
 export class RestaurantController {
   constructor(private readonly restaurantService: RestaurantService) {}
@@ -34,5 +43,17 @@ export class RestaurantController {
     @Query('halal') isHalal: boolean,
   ) {
     return this.restaurantService.getRestaurantList(isVegan, isHalal);
+  }
+
+  @Post(':id/photo')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadPhoto(
+    @Param('id') restaurant_id: number,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return await this.restaurantService.uploadRestaurantPhoto({
+      restaurant_id,
+      file,
+    });
   }
 }
