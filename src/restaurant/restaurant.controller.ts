@@ -55,6 +55,13 @@ export class RestaurantController {
     @Query('lng') lng: number,
     @Query('radius') radius: number = 5,
   ) {
-    return this.restaurantService.findNearbyRestaurants(lat, lng, radius);
+    //return this.restaurantService.findNearbyRestaurants(lat, lng, radius);
+  }
+  @Get('filteredLIst')
+  async getRestaurantInCondition(
+    @Query('vegan') is_vegan: boolean,
+    @Query('halal') is_halal: boolean,
+  ) {
+    return this.restaurantService.getRestaurantList({ is_vegan, is_halal });
   }
 }

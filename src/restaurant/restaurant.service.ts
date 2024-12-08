@@ -4,9 +4,12 @@ import { FillterDto } from './dto/requestRestaurant.dto';
 import { RestaurantRepository } from './restaurant.repository';
 @Injectable()
 export class RestaurantService {
-  constructor(private prisma: PrismaClient) {}
+  constructor(
+    private prisma: PrismaClient,
+    private restaurantRepository: RestaurantRepository,
+  ) {}
 
   async getRestaurantList(filterDto: FillterDto): Promise<Restaurants[]> {
-    return RestaurantRepository.findRestaurantInCondition(filterDto);
+    return this.restaurantRepository.findRestaurantInCondition(filterDto);
   }
 }
