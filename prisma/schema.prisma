@@ -18,8 +18,8 @@ model Restaurants {
   address_detail String   @db.VarChar(50)
   time_open      DateTime
   time_close     DateTime
-  is_res_halal       Boolean
-  is_res_vegan       Boolean
+  is_res_halal       Boolean @default(false)
+  is_res_vegan       Boolean @default(false)
   menus          Menu[]
 }
 
@@ -29,8 +29,8 @@ model Menu {
   name          String    @db.VarChar(100)
   photo_id      Int?
   price         Decimal    @db.Decimal(10, 2)
-  is_menu_halal       Boolean
-  is_menu_vegan       Boolean
+  is_menu_halal       Boolean @default(false)
+  is_menu_vegan       Boolean @default(false)
   allergies_id  String    @db.Char(10)
 
   restaurant    Restaurants @relation(fields: [restaurant_id], references: [restaurant_id])

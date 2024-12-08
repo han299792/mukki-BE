@@ -7,6 +7,11 @@ export class RestaurantRepository {
   constructor(private readonly prisma: PrismaClient) {}
 
   async findRestaurantInCondition(filterDto: FillterDto) {
-    return this.prisma.restaurants;
+    const { is_vegan, is_halal }= filterDto;
+    return this.prisma.restaurants.findMany({
+      where{
+        is_res_vegan:is_vegan
+      }
+    });
   }
 }
