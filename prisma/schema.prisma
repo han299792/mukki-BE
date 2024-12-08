@@ -42,8 +42,7 @@ model Menu {
 
 model Photo {
   photo_id Int    @id @default(autoincrement())
-  name     String @db.Text
-  image    Bytes
+  file_path  String @db.VarChar(255)
 
   menus    Menu[]
 }
