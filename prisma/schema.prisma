@@ -29,8 +29,8 @@ model Menu {
   name          String    @db.VarChar(100)
   photo_id      Int?
   price         Decimal    @db.Decimal(10, 2)
-  is_res_halal       Boolean
-  is_res_vegan       Boolean
+  is_menu_halal       Boolean
+  is_menu_vegan       Boolean
   allergies_id  String    @db.Char(10)
 
   restaurant    Restaurants @relation(fields: [restaurant_id], references: [restaurant_id])
