@@ -3,6 +3,7 @@ import { PrismaClient, Restaurants } from '@prisma/client';
 import { RestaurantRepository } from './restaurant.repository';
 import { ResPhotoDto } from './dto/resPhoto.dto';
 import { S3Service } from 'src/S3';
+import { FilterDto } from './dto/requestRestaurant.dto';
 
 @Injectable()
 export class RestaurantService {
@@ -12,16 +13,7 @@ export class RestaurantService {
     private readonly s3Service: S3Service,
   ) {}
 
-  async getRestaurantList(
-    is_vegan,
-    is_halal,
-    is_peanut,
-  ): Promise<Restaurants[]> {
-    const filterDto = {
-      ...(is_vegan === true ? { is_vegan: true } : {}),
-      ...(is_halal === true ? { is_halal: true } : {}),
-      ...(is_peanut === true ? { is_peanut: true } : {}),
-    };
+  async getRestaurantList(filterDto: FilterDto): Promise<Restaurants[]> {
     return this.restaurantRepository.findRestaurantInCondition(filterDto);
   }
 
