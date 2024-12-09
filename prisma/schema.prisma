@@ -80,14 +80,13 @@ model User {
 
   userPreference UserPreference[]
 }
-
 model UserPreference {
   user_id       Int      @id
   is_user_halal Boolean  @default(false)
   is_user_vegan Boolean  @default(false)
   is_user_peanut Boolean @default(false)
 
-  user User @relation(fields: [user_id], references: [user_id])
+  user User @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
 
   @@map("user_preferences")
 }
