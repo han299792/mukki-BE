@@ -56,6 +56,7 @@ export class RestaurantController {
     @Param('id') restaurant_id: number,
     @UploadedFile() file: Express.Multer.File,
   ) {
+    restaurant_id = Number(restaurant_id);
     return await this.restaurantService.uploadRestaurantPhoto({
       restaurant_id,
       file,
