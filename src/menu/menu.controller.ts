@@ -13,16 +13,12 @@ import {
   ApiResponse,
   ApiConsumes,
 } from '@nestjs/swagger';
-import MenuRepository from './menu.repository';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('Menu')
 @Controller('menu')
 export class MenuController {
-  constructor(
-    private readonly menuService: MenuService,
-    private readonly menuRepository: MenuRepository,
-  ) {}
+  constructor(private readonly menuService: MenuService) {}
 
   @Get('list/:restaurantId')
   @ApiOperation({ summary: 'Get menu list by restaurant ID' })
