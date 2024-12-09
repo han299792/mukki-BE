@@ -106,7 +106,7 @@ export class RestaurantController {
       },
     },
   })
-  async getRestaurantInfo(@Param('id') restaurantId: number) {
+  async getRestaurantInfo(@Param('id', ParseIntPipe) restaurantId: number) {
     return this.restaurantService.getRestaurantInfo(restaurantId);
   }
   @Put('update/:id')
@@ -161,7 +161,7 @@ export class RestaurantController {
     },
   })
   async updateRestaurantInfo(
-    @Param('id') restaurantId: number,
+    @Param('id', ParseIntPipe) restaurantId: number,
     @Body() data: any,
   ) {
     return this.restaurantService.updateRestaurantInfo(restaurantId, data);
@@ -189,7 +189,7 @@ export class RestaurantController {
       },
     },
   })
-  async deleteRestaurant(@Param('id') restaurantId: number) {
+  async deleteRestaurant(@Param('id', ParseIntPipe) restaurantId: number) {
     await this.restaurantService.deleteRestaurant(restaurantId);
     return { message: `Restaurant with ID ${restaurantId} has been deleted.` };
   }
