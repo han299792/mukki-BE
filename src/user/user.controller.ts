@@ -20,7 +20,19 @@ export class UserController {
 
   @Post('register')
   @ApiOperation({ summary: 'Register a new user' })
-  @ApiResponse({ status: 201, description: 'User successfully registered.' })
+  @ApiResponse({
+    status: 201,
+    description: 'User successfully registered.',
+    schema: {
+      example: {
+        user_id: 1,
+        username: 'JohnDoe',
+        kakaoId: 12345,
+        location_lat: null,
+        location_long: null,
+      },
+    },
+  })
   @ApiResponse({ status: 400, description: 'Invalid request payload.' })
   @ApiBody({ type: CreateUserDto })
   async register(@Body() createUserDto: CreateUserDto): Promise<User> {
