@@ -7,6 +7,9 @@ import { PrismaModule } from './prisma/prisma.module';
 import { GlobalHttpModule } from './http/http.module';
 import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
+import { MenuService } from './menu/menu.service';
+import { MenuController } from './menu/menu.controller';
+import { MenuModule } from './menu/menu.module';
 
 @Module({
   imports: [
@@ -21,8 +24,9 @@ import { AppController } from './app.controller';
     LocationModule,
     PrismaModule,
     AuthModule,
+    MenuModule,
   ],
-  providers: [ConfigService],
-  controllers: [AppController],
+  providers: [ConfigService, MenuService],
+  controllers: [AppController, MenuController],
 })
 export class AppModule {}
