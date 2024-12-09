@@ -1,0 +1,50 @@
+name: CI/CD for Docker Compose on Lightsail
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Set up Docker
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      # 3. Build Docker images
+      - name: Build Docker images
+        run: |
+          docker-compose -f docker-compose.yml build
+
+      # 4. Upload Docker Compose files to Lightsail
+      - name: Upload Docker Compose files to Lightsail
+        env:
+          HOST: ${{ secrets.LIGHTSAIL_HOST }}
+          USER: ${{ secrets.LIGHTSAIL_USER }}
+          SSH_KEY: ${{ secrets.LIGHTSAIL_SSH_KEY }}
+        run: |
+          echo "${SSH_KEY}" > deploy_key.pem
+          chmod 600 deploy_key.pem
+
+          # Upload docker-compose.yml and any necessary files
+          scp -i deploy_key.pem docker-compose.yml $USER@$HOST:/home/ubuntu/mukki-BE
+
+      # 5. Deploy on Lightsail
+      - name: Deploy Docker Compose on Lightsail
+        env:
+          HOST: ${{ secrets.LIGHTSAIL_HOST }}
+          USER: ${{ secrets.LIGHTSAIL_USER }}
+          SSH_KEY: ${{ secrets.LIGHTSAIL_SSH_KEY }}
+        run: |
+          ssh -i deploy_key.pem $USER@$HOST << 'EOF'
+          cd /home/ubuntu/mukki-BE
+          docker-compose down || true
+          docker-compose up -d
+          EOF
