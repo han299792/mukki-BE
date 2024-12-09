@@ -13,8 +13,6 @@ export class UserRepository {
   async createUser(data: CreateUserDto): Promise<User> {
     const registerData: Prisma.UserCreateInput = {
       username: data.username,
-      email: data.email,
-      password: data.password,
       kakaoId: data.kakaoId || null,
     };
     return this.prisma.user.create({ data: registerData });
