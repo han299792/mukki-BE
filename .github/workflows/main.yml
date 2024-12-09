@@ -3,7 +3,7 @@ name: CI/CD for Docker Compose on Lightsail
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
