@@ -1,7 +1,20 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
 import { MenuService } from './menu.service';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiConsumes,
+} from '@nestjs/swagger';
 import MenuRepository from './menu.repository';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('Menu')
 @Controller('menu')
@@ -96,5 +109,44 @@ export class MenuController {
   })
   async getMenuInfo(@Param('menuId') menuId: number) {
     return this.menuService.getMenuInfo(menuId);
+  }
+
+  @Post('upload-photo/:menuId')
+  @ApiOperation({ summary: 'Upload and link a photo to a menu' })
+  @ApiConsumes('multipart/form-data')
+  @ApiResponse({
+    status: 200,
+    description: 'Photo successfully uploaded and linked to the menu.',
+    schema: {
+      example: {
+        message: 'Photo successfully uploaded and linked to menu 1',
+        photo: {
+          photo_id: 123,
+          file_path: '/uploads/menu_photo.jpg',
+        },
+      },
+    },
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Menu not found.',
+    schema: {
+      example: {
+        statusCode: 404,
+        message: 'Menu with ID 1 not found',
+        error: 'Not Found',
+      },
+    },
+  })
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadMenuPhoto(
+    @Param('menuId') menuId: number,
+    @UploadedFile() file: Express.Multer.File,
+  ): Promise<{
+    message: string;
+    photo: { photo_id: number; file_path: string };
+  }> {
+    const filePath = `/uploads/${file.originalname}`;
+    return this.menuService.uploadMenuPhoto(menuId, filePath);
   }
 }

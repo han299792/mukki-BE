@@ -35,4 +35,18 @@ export default class MenuRepository {
       },
     });
   }
+  async savePhoto(filePath: string) {
+    return this.prisma.photo.create({
+      data: {
+        file_path: filePath,
+      },
+    });
+  }
+
+  async updateMenuPhoto(menuId: number, photoId: number) {
+    return this.prisma.menu.update({
+      where: { menu_id: menuId },
+      data: { photo_id: photoId },
+    });
+  }
 }
