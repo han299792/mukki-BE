@@ -66,5 +66,45 @@ export class RestaurantController {
   @Post()
   async createRestaurant(@Body() createRestaurantDto: CreateRestaurantDto) {
     return await this.restaurantService.createRestaurant(createRestaurantDto);
-  } //cicd test
+  }
+
+  @Get('info/:id')
+  @ApiResponse({
+    status: 200,
+    description: 'Restaurant information retrieved successfully.',
+    schema: {
+      example: {
+        restaurant_id: 1,
+        name: 'The Gourmet Spot',
+        food_category: 'Italian',
+        contact_number: '123-456-7890',
+        address_si: 'Seoul',
+        address_gu: 'Gangnam',
+        address_dong: 'Apgujeong',
+        address_detail: 'Building 123',
+        time_open: '10:00',
+        time_close: '22:00',
+        is_res_halal: true,
+        is_res_vegan: false,
+        photo: {
+          photo_id: 1,
+          filepath: '/uploads/restaurant1.jpg',
+        },
+      },
+    },
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Restaurant not found.',
+    schema: {
+      example: {
+        statusCode: 404,
+        message: 'Restaurant with ID 1 not found',
+        error: 'Not Found',
+      },
+    },
+  })
+  async getRestaurantInfo(@Param('id') restaurantId: number) {
+    return this.restaurantService.getRestaurantInfo(restaurantId);
+  }
 }

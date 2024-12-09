@@ -40,4 +40,12 @@ export class RestaurantRepository {
       data,
     });
   }
+  async getRestaurantById(restaurantId: number) {
+    return this.prisma.restaurants.findUnique({
+      where: { restaurant_id: restaurantId },
+      include: {
+        photo: true,
+      },
+    });
+  }
 }

@@ -26,4 +26,7 @@ export class RestaurantService {
       createRestaurantDto,
     );
   }
+  async getRestaurantInfo(restaurantId: number) {
+    return this.restaurantRepository.getRestaurantById(restaurantId);
+  }
 }
