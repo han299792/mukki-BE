@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient, Restaurants } from '@prisma/client';
+import { Prisma, PrismaClient, Restaurants } from '@prisma/client';
 import { RestaurantRepository } from './restaurant.repository';
 import { ResPhotoDto } from './dto/resPhoto.dto';
 import { S3Service } from 'src/S3';
@@ -28,5 +28,15 @@ export class RestaurantService {
   }
   async getRestaurantInfo(restaurantId: number) {
     return this.restaurantRepository.getRestaurantById(restaurantId);
+  }
+  async updateRestaurantInfo(
+    restaurantId: number,
+    data: Prisma.RestaurantsUpdateInput,
+  ) {
+    return this.restaurantRepository.updateRestaurant(restaurantId, data);
+  }
+
+  async deleteRestaurant(restaurantId: number) {
+    return this.restaurantRepository.deleteRestaurant(restaurantId);
   }
 }

@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -8,8 +9,9 @@ import {
   Query,
   UploadedFile,
   UseInterceptors,
+  Put,
 } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger';
 import { RestaurantService } from './restaurant.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateRestaurantDto } from './dto/createRestaurant.dto';
@@ -106,5 +108,89 @@ export class RestaurantController {
   })
   async getRestaurantInfo(@Param('id') restaurantId: number) {
     return this.restaurantService.getRestaurantInfo(restaurantId);
+  }
+  @Put('update/:id')
+  @ApiOperation({ summary: 'Update restaurant information' })
+  @ApiResponse({
+    status: 200,
+    description: 'Restaurant information updated successfully.',
+    schema: {
+      example: {
+        restaurant_id: 1,
+        name: 'Updated Gourmet Spot',
+        food_category: 'Fusion',
+        contact_number: '123-456-7890',
+        address_si: 'Seoul',
+        address_gu: 'Gangnam',
+        address_dong: 'Apgujeong',
+        address_detail: 'Building 123',
+        time_open: '11:00',
+        time_close: '23:00',
+        is_res_halal: false,
+        is_res_vegan: true,
+      },
+    },
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Restaurant not found.',
+    schema: {
+      example: {
+        statusCode: 404,
+        message: 'Restaurant with ID 1 not found',
+        error: 'Not Found',
+      },
+    },
+  })
+  @ApiBody({
+    description: 'Updated restaurant data',
+    schema: {
+      example: {
+        name: 'Updated Gourmet Spot',
+        food_category: 'Fusion',
+        contact_number: '123-456-7890',
+        address_si: 'Seoul',
+        address_gu: 'Gangnam',
+        address_dong: 'Apgujeong',
+        address_detail: 'Building 123',
+        time_open: '11:00',
+        time_close: '23:00',
+        is_res_halal: false,
+        is_res_vegan: true,
+      },
+    },
+  })
+  async updateRestaurantInfo(
+    @Param('id') restaurantId: number,
+    @Body() data: any,
+  ) {
+    return this.restaurantService.updateRestaurantInfo(restaurantId, data);
+  }
+
+  @Delete('delete/:id')
+  @ApiOperation({ summary: 'Delete a restaurant' })
+  @ApiResponse({
+    status: 200,
+    description: 'Restaurant deleted successfully.',
+    schema: {
+      example: {
+        message: 'Restaurant with ID 1 has been deleted.',
+      },
+    },
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Restaurant not found.',
+    schema: {
+      example: {
+        statusCode: 404,
+        message: 'Restaurant with ID 1 not found',
+        error: 'Not Found',
+      },
+    },
+  })
+  async deleteRestaurant(@Param('id') restaurantId: number) {
+    await this.restaurantService.deleteRestaurant(restaurantId);
+    return { message: `Restaurant with ID ${restaurantId} has been deleted.` };
   }
 }
