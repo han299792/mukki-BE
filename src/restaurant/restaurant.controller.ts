@@ -66,5 +66,5 @@ export class RestaurantController {
   @Post()
   async createRestaurant(@Body() createRestaurantDto: CreateRestaurantDto) {
     return await this.restaurantService.createRestaurant(createRestaurantDto);
-  }
+  } //cicd test
 }
