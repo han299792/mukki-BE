@@ -61,4 +61,40 @@ export class MenuController {
   async getMenuList(@Param('restaurantId') restaurantId: number) {
     return this.menuService.getMenuListByRestaurant(restaurantId);
   }
+
+  @Get('info/:menuId')
+  @ApiOperation({ summary: 'Get menu information by menu ID' })
+  @ApiResponse({
+    status: 200,
+    description: 'Menu information retrieved successfully.',
+    schema: {
+      example: {
+        menu_id: 1,
+        restaurant_id: 10,
+        name: 'Spaghetti Carbonara',
+        photo: {
+          photo_id: 101,
+          filepath: '/uploads/carbonara.jpg',
+        },
+        price: 12.99,
+        is_menu_halal: true,
+        is_menu_vegan: false,
+        is_menu_peanut: false,
+      },
+    },
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Menu not found.',
+    schema: {
+      example: {
+        statusCode: 404,
+        message: 'Menu with ID 1 not found',
+        error: 'Not Found',
+      },
+    },
+  })
+  async getMenuInfo(@Param('menuId') menuId: number) {
+    return this.menuService.getMenuInfo(menuId);
+  }
 }

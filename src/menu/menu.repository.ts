@@ -22,4 +22,17 @@ export default class MenuRepository {
       },
     });
   }
+  async getMenuInfo(menuId: number) {
+    return this.prisma.menu.findUnique({
+      where: { menu_id: menuId },
+      include: {
+        photo: {
+          select: {
+            photo_id: true,
+            file_path: true,
+          },
+        },
+      },
+    });
+  }
 }
