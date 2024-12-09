@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -67,7 +68,7 @@ export class MenuController {
       },
     },
   })
-  async getMenuList(@Param('restaurantId') restaurantId: number) {
+  async getMenuList(@Param('restaurantId', ParseIntPipe) restaurantId: number) {
     return this.menuService.getMenuListByRestaurant(restaurantId);
   }
 
@@ -103,7 +104,7 @@ export class MenuController {
       },
     },
   })
-  async getMenuInfo(@Param('menuId') menuId: number) {
+  async getMenuInfo(@Param('menuId', ParseIntPipe) menuId: number) {
     return this.menuService.getMenuInfo(menuId);
   }
 
@@ -136,7 +137,7 @@ export class MenuController {
   })
   @UseInterceptors(FileInterceptor('file'))
   async uploadMenuPhoto(
-    @Param('menuId') menuId: number,
+    @Param('menuId', ParseIntPipe) menuId: number,
     @UploadedFile() file: Express.Multer.File,
   ): Promise<{
     message: string;

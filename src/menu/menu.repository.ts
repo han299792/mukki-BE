@@ -1,13 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
-import { S3Service } from 'src/S3';
 
 @Injectable()
 export default class MenuRepository {
-  constructor(
-    private readonly prisma: PrismaClient,
-    private readonly s3Service: S3Service,
-  ) {}
+  constructor(private readonly prisma: PrismaClient) {}
 
   async getMenusByRestaurantId(restaurantId: number) {
     return this.prisma.menu.findMany({

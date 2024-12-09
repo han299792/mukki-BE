@@ -28,7 +28,7 @@ model Restaurants {
 }
 
 model Menu {
-  menu_id       Int    @id
+  menu_id       Int    @id @default(autoincrement())
   restaurant_id Int
   name          String    @db.VarChar(100)
   photo_id      Int?
