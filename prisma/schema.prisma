@@ -10,8 +10,8 @@ generator client {
 model Restaurants {
   restaurant_id Int       @id @default(autoincrement())
   name          String    @db.VarChar(100)
-  food_category String    @db.VarChar(50)
-  contact_number String   @db.VarChar(15)
+  food_category String    @db.VarChar(100)
+  contact_number String   @db.VarChar(100)
   address_si     String   @db.VarChar(50)
   address_gu     String   @db.VarChar(50)
   address_dong   String   @db.VarChar(50)
@@ -30,7 +30,7 @@ model Restaurants {
 model Menu {
   menu_id       Int    @id @default(autoincrement())
   restaurant_id Int
-  name          String    @db.VarChar(100)
+  name          String    @db.VarChar(150)
   photo_id      Int?
   price         Decimal    @db.Decimal(10, 2)
   is_menu_halal       Boolean @default(false)

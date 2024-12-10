@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE "Menu" ALTER COLUMN "name" SET DATA TYPE VARCHAR(150);
+
+-- AlterTable
+ALTER TABLE "Restaurants" ALTER COLUMN "food_category" SET DATA TYPE VARCHAR(100),
+ALTER COLUMN "contact_number" SET DATA TYPE VARCHAR(100);
