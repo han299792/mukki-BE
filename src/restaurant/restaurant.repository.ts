@@ -16,9 +16,9 @@ export class RestaurantRepository {
     const { is_vegan, is_halal, is_peanut } = filterDto;
     return this.prisma.restaurants.findMany({
       where: {
-        ...(is_vegan == true ? { is_res_vegan: is_vegan } : {}),
-        ...(is_halal == true ? { is_res_halal: is_halal } : {}),
-        ...(is_peanut == true ? { is_res_peanut: is_peanut } : {}),
+        ...(Boolean(is_vegan) ? { is_res_vegan: true } : {}),
+        ...(Boolean(is_halal) ? { is_res_halal: true } : {}),
+        ...(Boolean(is_peanut) ? { is_res_peanut: true } : {}),
       },
       include: { photo: true },
     });
