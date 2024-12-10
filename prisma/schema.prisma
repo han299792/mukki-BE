@@ -11,7 +11,7 @@ model Restaurants {
   restaurant_id Int       @id @default(autoincrement())
   name          String    @db.VarChar(100)
   food_category String    @db.VarChar(50)
-  contact_number String   @db.VarChar(15)
+  contact_number String   @db.VarChar(50)
   address_si     String   @db.VarChar(50)
   address_gu     String   @db.VarChar(50)
   address_dong   String   @db.VarChar(50)
