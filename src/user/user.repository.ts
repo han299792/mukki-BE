@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, PrismaClient, User } from '@prisma/client';
+import { Prisma, PrismaClient, User, UserPreference } from '@prisma/client';
 import { CreateUserDto } from './dto/createUser.dto';
 
 @Injectable()
@@ -27,5 +27,25 @@ export class UserRepository {
 
   async deleteUser(userId: number): Promise<void> {
     await this.prisma.user.delete({ where: { user_id: userId } });
+  }
+  async getUserWithPreferences(userId: number) {
+    return this.prisma.user.findUnique({
+      where: { user_id: userId },
+      include: { userPreference: true },
+    });
+  }
+
+  async createOrUpdateUserPreference(
+    userId: number,
+    data: Partial<UserPreference>,
+  ) {
+    return this.prisma.userPreference.upsert({
+      where: { user_id: userId },
+      update: data,
+      create: {
+        user_id: userId,
+        ...data,
+      },
+    });
   }
 }

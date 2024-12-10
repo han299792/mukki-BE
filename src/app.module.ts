@@ -7,6 +7,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { GlobalHttpModule } from './http/http.module';
 import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
+import { MenuModule } from './menu/menu.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { AppController } from './app.controller';
     LocationModule,
     PrismaModule,
     AuthModule,
+    MenuModule,
   ],
   providers: [ConfigService],
   controllers: [AppController],

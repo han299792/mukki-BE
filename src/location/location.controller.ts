@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Param } from '@nestjs/common';
+import { Controller, Post, Body, Param, ParseIntPipe } from '@nestjs/common';
 import { LocationService } from './location.service';
 import { CreateLocationDto } from './dto/userLocation.dto';
 
@@ -8,7 +8,7 @@ export class LocationController {
 
   @Post(':userId')
   async saveLocation(
-    @Param('userId') userId: number,
+    @Param('userId', ParseIntPipe) userId: number,
     @Body() locationDto: CreateLocationDto,
   ) {
     return this.locationService.saveUserLocation(userId, locationDto);

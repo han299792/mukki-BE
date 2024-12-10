@@ -28,7 +28,7 @@ model Restaurants {
 }
 
 model Menu {
-  menu_id       Int    @id
+  menu_id       Int    @id @default(autoincrement())
   restaurant_id Int
   name          String    @db.VarChar(100)
   photo_id      Int?
@@ -36,11 +36,9 @@ model Menu {
   is_menu_halal       Boolean @default(false)
   is_menu_vegan       Boolean @default(false)
   is_menu_peanut      Boolean @default(false)
-  allergies_id  String    @db.Char(10)
 
   restaurant    Restaurants @relation(fields: [restaurant_id], references: [restaurant_id])
   photo         Photo?       @relation(fields: [photo_id], references: [photo_id])
-  menuComponents Menu_Component[]
 
   @@index([restaurant_id])
 }
@@ -53,24 +51,6 @@ model Photo {
   restaurants Restaurants[]
 }
 
-model Menu_Component {
-  menu_com_id Int @id @default(autoincrement())
-  menu_id     Int
-  component_id Int
-
-  menu       Menu       @relation(fields: [menu_id], references: [menu_id])
-  component  Components @relation(fields: [component_id], references: [component_id])
-
-  @@index([menu_id])
-  @@index([component_id])
-}
-
-model Components {
-  component_id Int     @id @default(autoincrement())
-  component    String  @db.VarChar(100)
-
-  menuComponents Menu_Component[]
-}
 model User {
   user_id       Int      @id @default(autoincrement())
   username      String   @db.VarChar(50) @unique
